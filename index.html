@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Yarımillik Bal Hesablama</title>
+
 <style>
 body{
     font-family: Arial;
@@ -12,7 +13,7 @@ body{
 
 .box{
     background:white;
-    width:300px;
+    width:320px;
     margin:50px auto;
     padding:20px;
     border-radius:10px;
@@ -33,7 +34,7 @@ button{
 }
 
 #netice{
-    font-size:20px;
+    font-size:18px;
     margin-top:15px;
 }
 </style>
@@ -42,14 +43,15 @@ button{
 <body>
 
 <div class="box">
-<h2>Yarımillik Bal</h2>
+<h2>Yarımillik Bal Hesabla</h2>
 
 <input type="number" id="ksq1" placeholder="KSQ 1">
 <input type="number" id="ksq2" placeholder="KSQ 2">
 <input type="number" id="ksq3" placeholder="KSQ 3">
-<input type="number" id="ksq4" placeholder="KSQ 4">
-<input type="number" id="ksq5" placeholder="KSQ 5">
-<input type="number" id="bsq" placeholder="BSQ">
+<input type="number" id="ksq4" placeholder="KSQ 4 (istəyə bağlı)">
+<input type="number" id="ksq5" placeholder="KSQ 5 (istəyə bağlı)">
+
+<input type="number" id="bsq" placeholder="BSQ (istəyə bağlı)">
 
 <button onclick="hesabla()">Hesabla</button>
 
@@ -58,20 +60,45 @@ button{
 
 <script>
 function hesabla(){
-    let k1 = Number(document.getElementById("ksq1").value);
-    let k2 = Number(document.getElementById("ksq2").value);
-    let k3 = Number(document.getElementById("ksq3").value);
-    let k4 = Number(document.getElementById("ksq4").value);
-    let k5 = Number(document.getElementById("ksq5").value);
-    let b = Number(document.getElementById("bsq").value);
 
-    let orta = (k1 + k2 + k3 +k4 + k5) / 5;
-    let ortaksq = ((k1 + k2 + k3 +k4 + k5) / 4)*0.4;
-    let bsq = b*0.6;
-    let illik = bsq+ortaksq
+    let ksq = [
+        parseFloat(ksq1.value),
+        parseFloat(ksq2.value),
+        parseFloat(ksq3.value),
+        parseFloat(ksq4.value),
+        parseFloat(ksq5.value)
+    ];
 
-    document.getElementById("netice").innerHTML = 
-        "Yarımillik bal: " + orta.toFixed(1);
+    let bsq = parseFloat(document.getElementById("bsq").value);
+
+    let cem = 0;
+    let say = 0;
+
+    for(let i = 0; i < ksq.length; i++){
+        if(!isNaN(ksq[i])){
+            cem += ksq[i];
+            say++;
+        }
+    }
+
+    if(say === 0){
+        document.getElementById("netice").innerHTML = "Ən azı 1 KSQ yaz!";
+        return;
+    }
+
+    let ortaksq = cem / say;
+
+    let yarimillik;
+
+    if(isNaN(bsq)){
+        yarimillik = ortaksq;   // BSQ yoxdursa təkcə KSQ ortası
+    }else{
+        yarimillik = (ortaksq * 0.4) + (bsq * 0.6);
+    }
+
+    document.getElementById("netice").innerHTML =
+        "KSQ ortası: " + ortaksq.toFixed(1) + "<br>" +
+        "Yarımillik bal: " + yarimillik.toFixed(1);
 }
 </script>
 
