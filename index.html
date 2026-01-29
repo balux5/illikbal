@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<title>Yarımillik Bal Hesablama</title>
+<style>
+body{
+    font-family: Arial;
+    background:#f2f2f2;
+    text-align:center;
+}
+
+.box{
+    background:white;
+    width:300px;
+    margin:50px auto;
+    padding:20px;
+    border-radius:10px;
+}
+
+input{
+    width:90%;
+    padding:8px;
+    margin:5px;
+}
+
+button{
+    padding:10px 20px;
+    background:green;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+#netice{
+    font-size:20px;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Yarımillik Bal</h2>
+
+<input type="number" id="ksq1" placeholder="KSQ 1">
+<input type="number" id="ksq2" placeholder="KSQ 2">
+<input type="number" id="ksq3" placeholder="KSQ 3">
+<input type="number" id="ksq4" placeholder="KSQ 4">
+<input type="number" id="ksq5" placeholder="KSQ 5">
+<input type="number" id="bsq" placeholder="BSQ">
+
+<button onclick="hesabla()">Hesabla</button>
+
+<div id="netice"></div>
+</div>
+
+<script>
+function hesabla(){
+    let k1 = Number(document.getElementById("ksq1").value);
+    let k2 = Number(document.getElementById("ksq2").value);
+    let k3 = Number(document.getElementById("ksq3").value);
+    let k4 = Number(document.getElementById("ksq4").value);
+    let k5 = Number(document.getElementById("ksq5").value);
+    let b = Number(document.getElementById("bsq").value);
+
+    let orta = (k1 + k2 + k3 +k4 + k5) / 5;
+    let ortaksq = ((k1 + k2 + k3 +k4 + k5) / 4)*0.4;
+    let bsq = b*0.6;
+    let illik = bsq+ortaksq
+
+    document.getElementById("netice").innerHTML = 
+        "Yarımillik bal: " + orta.toFixed(1);
+}
+</script>
+
+</body>
+</html>
